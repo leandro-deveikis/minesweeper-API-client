@@ -5,17 +5,20 @@ import com.github.kittinunf.fuel.gson.jsonBody
 import com.minesweeper.client.model.Player
 import com.minesweeper.client.model.request.CreatePlayerRequest
 
+/**
+ * PlayerClient groups the operations done for a Player.
+ */
 abstract class PlayerClient {
     companion object {
 
         fun getPlayer(id: Int): Player? {
-            return Fuel.get("http://minesweeper-api-ld.herokuapp.com/player/$id")
+            return Fuel.get(Constants.baseUrl + "/player/$id")
                     .responseObject(Player.Deserializer())
                     .third.component1()
         }
 
         fun createPlayer(request: CreatePlayerRequest): Player? {
-            return Fuel.post("http://minesweeper-api-ld.herokuapp.com/player/")
+            return Fuel.post(Constants.baseUrl + "/player/")
                     .jsonBody(request)
                     .responseObject(Player.Deserializer())
                     .third.component1()

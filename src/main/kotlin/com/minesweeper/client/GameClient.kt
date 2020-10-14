@@ -7,31 +7,34 @@ import com.minesweeper.client.model.request.ClickGameRequest
 import com.minesweeper.client.model.request.CreateGameRequest
 import com.minesweeper.client.model.request.FlagGameRequest
 
-
+/**
+ * GameClient groups the operations done for a game.
+ */
 abstract class GameClient {
     companion object {
+
         fun getGame(id: Int): Game? {
-            return Fuel.get("http://minesweeper-api-ld.herokuapp.com/game/$id")
+            return Fuel.get(Constants.baseUrl + "/game/$id")
                     .responseObject(Game.Deserializer())
                     .third.component1()
         }
 
         fun createGame(request: CreateGameRequest): Game? {
-            return Fuel.post("http://minesweeper-api-ld.herokuapp.com/game/")
+            return Fuel.post(Constants.baseUrl + "/game/")
                     .jsonBody(request)
                     .responseObject(Game.Deserializer())
                     .third.component1()
         }
 
         fun flag(id: Int, request: FlagGameRequest): Game? {
-            return Fuel.post("http://minesweeper-api-ld.herokuapp.com/game/$id/flag")
+            return Fuel.post(Constants.baseUrl + "/game/$id/flag")
                     .jsonBody(request)
                     .responseObject(Game.Deserializer())
                     .third.component1()
         }
 
         fun click(id: Int, request: ClickGameRequest): Game? {
-            return Fuel.post("http://minesweeper-api-ld.herokuapp.com/game/$id/click")
+            return Fuel.post(Constants.baseUrl + "/game/$id/click")
                     .jsonBody(request)
                     .responseObject(Game.Deserializer())
                     .third.component1()

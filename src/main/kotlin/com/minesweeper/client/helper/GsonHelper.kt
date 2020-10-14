@@ -8,6 +8,7 @@ import java.time.LocalDateTime
 
 abstract class GsonHelper {
     companion object {
+
         fun getGsonInstance(): Gson {
             return GsonBuilder().registerTypeAdapter(LocalDateTime::class.java, JsonDeserializer
             { json, type, jsonDeserializationContext -> LocalDateTime.parse(json.asJsonPrimitive.asString) })
